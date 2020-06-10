@@ -12,7 +12,7 @@ Once certs are obtained, put them in /tmp
 
 ## Setup KUBECONFIG
 1. export KUBECONFIG=/tmp/futurewei.kubeconfig
-2. Copy the futurewei.kubeconfig from this repo to /tmp
+2. Copy futurewei.kubeconfig from this repo to /tmp
 
 ## Add Context Aliases
 Run add-alias.sh to add the following alias for context switch:
