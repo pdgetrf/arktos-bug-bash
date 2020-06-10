@@ -1,4 +1,4 @@
-# set up access for remote access
+# Set Up Access to The Bug Bash Cluster
 
 ## Where's the host?
 The host endpoint is in the futurewei.kubeconfig file. It runs in AWS.
