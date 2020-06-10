@@ -27,6 +27,8 @@ alias be-xiaoning='kubectl config use-context futurewei-xiaoning-context'
 
 As an example:
 
+All the yamls here are from this very repo.
+
 1. Become the tenant admin (if you have the cert)
 ```bash
 root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-tenant-admin
