@@ -7,7 +7,8 @@ The host endpoint is in the futurewei.kubeconfig file. It runs in AWS.
 Compile kubectl from arktos master repo
 
 ## Get Certs
-Call Peng for them. Once certs are obtained, put them in /tmp
+Call Peng for them. No, seriously, call Peng. 
+Once certs are obtained, put them in /tmp
 
 ## Setup KUBECONFIG
 1. export KUBECONFIG=/tmp/futurewei.kubeconfig
