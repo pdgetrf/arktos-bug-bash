@@ -69,6 +69,7 @@ As Xiaoning (taking the reader role):
 ```bash
 root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-xiaoning
 Switched to context "futurewei-xiaoning-context".
+root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash#
 root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl get pods,deployment
 NAME                                        HASHKEY               READY   STATUS    RESTARTS   AGE
 pod/futurewei-deployment-7b465d6d44-2hp8d   6163652222708500136   1/1     Running   0          3m11s
@@ -80,3 +81,9 @@ deployment.extensions/futurewei-deployment   3670486416904405280   3/3     3    
 ```
 To delete the deployment, become tenant-admin again.
 
+```bash
+root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-tenant-admin
+Switched to context "futurewei-admin-context".
+root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash#
+root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl delete -f test_deployment.yaml
+deployment.apps "futurewei-deployment" deleted
