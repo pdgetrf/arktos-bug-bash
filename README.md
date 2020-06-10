@@ -55,7 +55,9 @@ deployment.apps/futurewei-deployment created
 ```
 
 4. Become a regular (non-admin) user and enjoy the reduced power:
+
 As Peng (taking the pod-reader role):
+
 ```bash
 root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-peng
 Switched to context "futurewei-pengdu-context".
@@ -67,7 +69,9 @@ futurewei-deployment-7b465d6d44-kj5mc   3906009626040215916   1/1     Running   
 futurewei-deployment-7b465d6d44-nm5dk   2682486539157054401   1/1     Running   0          56s
 Error from server (Forbidden): deployments.extensions is forbidden: User "pengdu" cannot list resource "deployments" in API group "extensions" in the namespace "default"
 ```
+
 As Xiaoning (taking the reader role):
+
 ```bash
 root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-xiaoning
 Switched to context "futurewei-xiaoning-context".
