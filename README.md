@@ -1,26 +1,42 @@
 # Set Up Access to The Bug Bash Cluster
 
 ## Where's the host?
-The host endpoint is in the futurewei.kubeconfig file. It runs in AWS.
+The host endpoint is in the [tenant name].kubeconfig file. It runs in AWS.
 
 ## Prepare kubectl
 Compile kubectl from arktos master repo
 
-## Get Certs
+## Get Certs]
+
 Call Peng for them. No, seriously, call Peng. 
-Once certs are obtained, put them in /tmp
+
+You will get a tar file that contains the certs for two users, admin and john. Also it contains the kubeconfig file and server-ca.crt. Untar all of these files to /tmp. Here's an example for a tenant "toyota"
+
+```bash
+root@ip-172-31-27-32:/tmp# tar xvf toyota.tar
+toyota.kubeconfig
+toyota-admin.crt
+toyota-admin.key
+toyota-john.crt
+toyota-john.key
+server-ca.crt
+```
+
+As you can see, there are two users provisioned for this tenant: "admin" and "john". "admin" is the tenant admin, and cluster role and binding are already created for him with full tenant access. No access exists yet for the user "john". This will be granted by user "admin" as he will. [role_and_binding](./role_and_binding) has a set of sample role and binding for your convenience. Add your tenant name in them replacing the "[change me]" part.
 
 ## Setup KUBECONFIG
-1. export KUBECONFIG=/tmp/futurewei.kubeconfig
-2. Copy futurewei.kubeconfig from this repo to /tmp
+
+```bash
+export KUBECONFIG=/tmp/[tenant name].kubeconfig
+```
+
 
 ## Add Context Aliases
 Run add-alias.sh to add the following alias for context switch:
 
 ```
-alias be-peng='kubectl config use-context futurewei-pengdu-context'
-alias be-tenant-admin='kubectl config use-context futurewei-admin-context'
-alias be-xiaoning='kubectl config use-context futurewei-xiaoning-context'
+alias be-tenant-admin='kubectl config use-context [tenant name]-admin-context'
+alias be-john='kubectl config use-context [tenant name]-john-context'
 ```
 
 ## Have Fun Breaking Arktos
@@ -32,64 +48,57 @@ All the yamls here are from this very repo.
 1. Become the tenant admin (if you have the cert)
 ```bash
 root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-tenant-admin
-Switched to context "futurewei-admin-context".
+Switched to context "toyota-admin-context".
 ```
 
 2. Create roles and bindings for user:
 ```bash
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# ./create_roles_by_admin.sh
-+ kubectl create -f futureweirole-reader.yaml
-role.rbac.authorization.k8s.io/futurewei-reader created
-+ kubectl create -f futureweirole-pod-reader.yaml
-role.rbac.authorization.k8s.io/futureweirole-pod-reader created
-+ kubectl create -f futureweirolebinding-pengdu.yaml
-rolebinding.rbac.authorization.k8s.io/futureweirolebinding-pengdu created
-+ kubectl create -f futureweirolebinding-xiaoning.yaml
-rolebinding.rbac.authorization.k8s.io/futureweirolebinding-xiaoning created
+root@ip-172-31-27-32:/tmp# kubectl create -f role-reader.yaml
+role.rbac.authorization.k8s.io/reader created
+root@ip-172-31-27-32:/tmp#
+root@ip-172-31-27-32:/tmp# kubectl create -f rolebinding-reader.yaml
+rolebinding.rbac.authorization.k8s.io/rolebinding-reader created
 ```
 
-3. Create a deployment (or a job or whatever resource you want to test):
+Again, these yamls are provided to you in the [role_and_binding](./role_and_binding) folder.
+
+3. Create a deployment as the admin (or a job or whatever resource you want to test):
 ```bash
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl create -f test_deployment.yaml
+root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl create -f yamls/test_deployment.yaml
 deployment.apps/futurewei-deployment created
+root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash#
+root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl get pods,deployment
+NAME                                        HASHKEY               READY   STATUS    RESTARTS   AGE
+pod/toyota-deployment-7b465d6d44-5g767   4644458887903699283   1/1     Running   0          4s
+pod/toyota-deployment-7b465d6d44-fwbr4   3523552791452590234   1/1     Running   0          4s
+pod/toyota-deployment-7b465d6d44-mhqd8   3470346433990691991   1/1     Running   0          4s
+
+NAME                                         HASHKEY              READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.extensions/futurewei-deployment   409069956080056099   3/3     3            3           4s
 ```
 
 4. Become a regular (non-admin) user and enjoy the reduced power:
 
-As Peng (taking the pod-reader role):
+As John (taking the reader role):
 
 ```bash
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-peng
-Switched to context "futurewei-pengdu-context".
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash#
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl get pods,deployment
+root@ip-172-31-27-32:/tmp# be-john
+Switched to context "toyota-john-context".
+root@ip-172-31-27-32:/tmp
+root@ip-172-31-27-32:/tmp# kubectl get pods,deployment
 NAME                                    HASHKEY               READY   STATUS    RESTARTS   AGE
-futurewei-deployment-7b465d6d44-2hp8d   6163652222708500136   1/1     Running   0          56s
-futurewei-deployment-7b465d6d44-kj5mc   3906009626040215916   1/1     Running   0          56s
-futurewei-deployment-7b465d6d44-nm5dk   2682486539157054401   1/1     Running   0          56s
-Error from server (Forbidden): deployments.extensions is forbidden: User "pengdu" cannot list resource "deployments" in API group "extensions" in the namespace "default"
+toyota-deployment-7b465d6d44-5g767   4644458887903699283   1/1     Running   0          2m43s
+toyota-deployment-7b465d6d44-fwbr4   3523552791452590234   1/1     Running   0          2m43s
+toyota-deployment-7b465d6d44-mhqd8   3470346433990691991   1/1     Running   0          2m43s
+Error from server (Forbidden): deployments.extensions is forbidden: User "john" cannot list resource "deployments" in API group "extensions" in the namespace "default"
 ```
 
-As Xiaoning (taking the reader role):
-
-```bash
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-xiaoning
-Switched to context "futurewei-xiaoning-context".
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash#
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl get pods,deployment
-NAME                                        HASHKEY               READY   STATUS    RESTARTS   AGE
-pod/futurewei-deployment-7b465d6d44-2hp8d   6163652222708500136   1/1     Running   0          3m11s
-pod/futurewei-deployment-7b465d6d44-kj5mc   3906009626040215916   1/1     Running   0          3m11s
-pod/futurewei-deployment-7b465d6d44-nm5dk   2682486539157054401   1/1     Running   0          3m11s
-
-NAME                                         HASHKEY               READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.extensions/futurewei-deployment   3670486416904405280   3/3     3            3           3m11s
-```
 To delete the deployment, become tenant-admin again.
 
 ```bash
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# be-tenant-admin
-Switched to context "futurewei-admin-context".
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash#
-root@ip-172-31-27-32:~/bug-bash/arktos-bug-bash# kubectl delete -f test_deployment.yaml
-deployment.apps "futurewei-deployment" deleted
+root@ip-172-31-27-32:/tmp# be-tenant-admin
+Switched to context "toyota-admin-context".
+root@ip-172-31-27-32:/tmp
+root@ip-172-31-27-32:/tmp# kubectl delete -f ~/bug-bash/arktos-bug-bash/yamls/test_deployment.yaml
+deployment.apps "toyota-deployment" deleted
+```
