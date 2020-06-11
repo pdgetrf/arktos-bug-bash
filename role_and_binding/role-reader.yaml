@@ -2,9 +2,9 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: reader
-  tenant: [change me] 
+  tenant: tenant-qian-5  
   namespace: default 
 rules:
 - apiGroups: ["*"]
-  resources: ["pod"]
+  resources: ["pods"]
   verbs: ["get", "list", "watch"]
