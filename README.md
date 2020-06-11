@@ -6,7 +6,7 @@ Find provisioned tenant for your name:
 - [Qian Chen's testing tenant](https://efutureway.sharepoint.com/:u:/s/SeattleCloudLab/EZISaMvoC59Np2_Ln_ncE9QBt9IoeMTin93d6-MSo07FPA?e=D7TfoI)
 
 ## Where's the host?
-The host endpoint is in the [tenant name].kubeconfig file. It runs in AWS.
+The host endpoint is set in the [tenant name].kubeconfig file. It runs in AWS.
 
 ## Prepare kubectl
 Compile kubectl from arktos master repo on your own machine, and make sure PATH is set correctly to pick it up.
