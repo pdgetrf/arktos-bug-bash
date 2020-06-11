@@ -3,7 +3,7 @@
 ## Already Requested Tenants?
 Find provisioned tenant for your name:
 
-- [Qian Chen's tenant](https://efutureway.sharepoint.com/:u:/s/SeattleCloudLab/EZISaMvoC59Np2_Ln_ncE9QBt9IoeMTin93d6-MSo07FPA?e=D7TfoI)
+- [Qian's tenant](https://efutureway.sharepoint.com/:u:/s/SeattleCloudLab/EZISaMvoC59Np2_Ln_ncE9QBt9IoeMTin93d6-MSo07FPA?e=D7TfoI)
 - [Hongwei's tenant]()
 - [Yunwen's tenant](https://efutureway.sharepoint.com/:u:/s/SeattleCloudLab/EfgVbiZRlXROmOcU-KuwvE8BMYdnVElsQmooCTQjEmhtRw?e=ep3Jyg)
 
