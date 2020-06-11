@@ -35,8 +35,9 @@ export KUBECONFIG=/tmp/[tenant name].kubeconfig
 Run add-alias.sh to add the following alias for context switch:
 
 ```
-alias be-tenant-admin='kubectl config use-context [tenant name]-admin-context'
-alias be-john='kubectl config use-context [tenant name]-john-context'
+tn=[your tenant name]
+alias be-tenant-admin='kubectl config use-context $tn-admin-context'
+alias be-john='kubectl config use-context $tn-john-context'
 ```
 
 ## Have Fun Breaking Arktos
