@@ -1,5 +1,8 @@
 # Set Up Access to The Bug Bash Cluster
 
+## Already Requested Tenants
+[Qian Chen's testing tenant](https://efutureway.sharepoint.com/:u:/s/SeattleCloudLab/EZISaMvoC59Np2_Ln_ncE9QBt9IoeMTin93d6-MSo07FPA?e=D7TfoI)
+
 ## Where's the host?
 The host endpoint is in the [tenant name].kubeconfig file. It runs in AWS.
 
