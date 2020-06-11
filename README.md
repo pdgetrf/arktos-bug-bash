@@ -23,7 +23,7 @@ alias be-tenant-admin='kubectl config use-context futurewei-admin-context'
 alias be-xiaoning='kubectl config use-context futurewei-xiaoning-context'
 ```
 
-## Have Fun Trying to Break It
+## Have Fun Breaking Arktos
 
 As an example:
 
