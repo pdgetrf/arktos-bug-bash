@@ -6,7 +6,7 @@ The host endpoint is in the [tenant name].kubeconfig file. It runs in AWS.
 ## Prepare kubectl
 Compile kubectl from arktos master repo
 
-## Get Certs]
+## Get Certs
 
 Call Peng for them. No, seriously, call Peng. 
 
