@@ -7,7 +7,7 @@ then
 fi
 
 ### create tenant
-./hack/setup-multi-tenancy/create_tenant.sh $1
+./create_tenant.sh $1
 
 ### create users
 users=( admin john )
@@ -15,7 +15,7 @@ certfiles=""
 host=${2:-localhost}
 for user in "${users[@]}"
 do
-        ./hack/setup-multi-tenancy/setup_client.sh $1 $user $host 
+        ./setup_client.sh $1 $user $host 
         cred_name=$1-$user
         certfiles="$certfiles $cred_name.crt $cred_name.key"
 done
