@@ -4,7 +4,7 @@
 The host endpoint is in the [tenant name].kubeconfig file. It runs in AWS.
 
 ## Prepare kubectl
-Compile kubectl from arktos master repo
+Compile kubectl from arktos master repo on your own machine, and make sure PATH is set correctly to pick it up.
 
 ## Get Certs
 
