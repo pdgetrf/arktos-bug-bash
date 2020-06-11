@@ -13,7 +13,7 @@ Compile kubectl from arktos master repo on your own machine, and make sure PATH 
 
 ## Get Certs
 
-Call Peng for them. No, seriously, call Peng. 
+Call Peng for them. OKay, email works too. 
 
 You will get a tar file that contains the certs for two users, admin and john. Also it contains the kubeconfig file and server-ca.crt. Untar all of these files to /tmp. Here's an example for a tenant "toyota"
 
