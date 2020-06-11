@@ -1,5 +1,10 @@
 #!/bin/bash
 
-alias be-peng='kubectl config use-context futurewei-pengdu-context'
-alias be-xiaoning='kubectl config use-context futurewei-xiaoning-context'
-alias be-tenant-admin='kubectl config use-context futurewei-admin-context'
+if [ "$#" -lt 1 ]
+then
+        echo "Usage: add-alias.sh [tenant]"
+        exit 1
+fi
+
+alias be-tenant-admin='kubectl config use-context $1-admin-context'
+alias be-john='kubectl config use-context $1-john-context'
