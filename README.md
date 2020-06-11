@@ -27,7 +27,7 @@ toyota-john.key
 server-ca.crt
 ```
 
-As you can see, there are two users provisioned for this tenant: "admin" and "john". "admin" is the tenant admin, and cluster role and binding are already created for him with full tenant access. No access exists yet for the user "john". This will be granted by user "admin" as he will. [role_and_binding](./role_and_binding) has a set of sample role and binding for your convenience. Add your tenant name in them replacing the "[change me]" part.
+As you can see, there are two users provisioned for this tenant: "admin" and "john". "admin" is the tenant admin, and cluster role and binding are already created for him with full tenant access. No access exists yet for the user "john". This will be granted by user "admin" as he will. The [role_and_binding](./role_and_binding) folder has a set of sample role and binding for your convenience. Add your tenant name in them replacing the "[change me]" part.
 
 ## Setup KUBECONFIG
 
